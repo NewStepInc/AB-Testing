@@ -3,11 +3,9 @@ package roxma.org.sms_forward;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Telephony;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -30,15 +28,15 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //Process 2 of 2:  Ask to become default messaging ap
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-            if (!Telephony.Sms.getDefaultSmsPackage(this).equals("roxma.org.sms_forward")) {
-
-                //!!!!!! The following three lines are correct?
-                Intent intent = new Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT);
-                intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME, getPackageName());
-                startActivity(intent);
-            }
-        }
+//        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+//            if (!Telephony.Sms.getDefaultSmsPackage(this).equals(getPackageName())) {
+//
+//                //!!!!!! The following three lines are correct?
+//                Intent intent = new Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT);
+//                intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME, getPackageName());
+//                startActivity(intent);
+//            }
+//        }
         finish();
     }
 
